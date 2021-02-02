@@ -19,6 +19,8 @@ package org.apache.commons.collections4;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 /**
  * An implementation of the {@link java.util.Stack} API that is based on an
  * {@code ArrayList} instead of a {@code Vector}, so it is not
@@ -63,7 +65,7 @@ public class ArrayStack<E> extends ArrayList<E> {
      * @throws IllegalArgumentException  if the specified initial size
      *  is negative
      */
-    public ArrayStack(final int initialSize) {
+    public ArrayStack(final @NonNegative int initialSize) {
         super(initialSize);
     }
 
