@@ -20,6 +20,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 /**
  * Defines a collection that counts the number of times an object appears in
  * the collection.
@@ -156,7 +158,7 @@ public interface MultiSet<E> extends Collection<E> {
      * @return the total size of the multiset
      */
     @Override
-    int size();
+    @NonNegative int size();
 
     /**
      * Returns {@code true} if the MultiSet contains at least one

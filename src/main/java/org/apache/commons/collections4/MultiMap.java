@@ -18,6 +18,8 @@ package org.apache.commons.collections4;
 
 import java.util.Collection;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 /**
  * Defines a map that holds a collection of values against each key.
  * <p>
@@ -82,7 +84,7 @@ public interface MultiMap<K, V> extends IterableMap<K, Object> {
      * @return the number of key-collection mappings in this map
      */
     @Override
-    int size();
+    @NonNegative int size();
 
     /**
      * Gets the collection of values associated with the specified key.
