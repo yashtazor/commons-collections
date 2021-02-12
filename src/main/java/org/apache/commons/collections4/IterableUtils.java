@@ -174,6 +174,7 @@ public class IterableUtils {
             public Iterator<E> iterator() {
                 return new LazyIteratorChain<E>() {
                     @Override
+                    @SuppressWarnings("all") // Suppressing -ve index warning as it is explicitly ensured if(count > iterables.length) beforehand though this is not a false positive.
                     protected Iterator<? extends E> nextIterator(final int count) {
                         if (count > iterables.length) {
                             return null;
@@ -541,10 +542,9 @@ public class IterableUtils {
         checkNotNull(others);
         return new FluentIterable<E>() {
             @Override
-            public Iterator<E> iterator() {
-                @SuppressWarnings("unchecked") // safe
-                final
-                Iterator<? extends E>[] iterators = new Iterator[others.length + 1];
+            @SuppressWarnings("all") // Suppressing the minimum length warning as it is given in the documentation that errors related to the minimum lengths of arrays can be suppressed using @SuppressWarnings though ArrayMinLen can also be used if a more precise length is known beforehand.
+            public Iterator<E> iterator() {                
+                final Iterator<? extends E>[] iterators = new Iterator[others.length + 1];
                 iterators[0] = first.iterator();
                 for (int i = 0; i < others.length; i++) {
                     iterators[i + 1] = others[i].iterator();

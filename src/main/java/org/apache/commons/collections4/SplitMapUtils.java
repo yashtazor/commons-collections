@@ -27,6 +27,8 @@ import org.apache.commons.collections4.map.EntrySetToMapIteratorAdapter;
 import org.apache.commons.collections4.map.UnmodifiableEntrySet;
 import org.apache.commons.collections4.set.UnmodifiableSet;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 /**
  * Utilities for working with "split maps:" objects that implement {@link Put}
  * and/or {@link Get} but not {@link Map}.
@@ -116,7 +118,7 @@ public class SplitMapUtils {
         }
 
         @Override
-        public int size() {
+        public @NonNegative int size() {
             return get.size();
         }
 
@@ -209,7 +211,7 @@ public class SplitMapUtils {
         }
 
         @Override
-        public int size() {
+        public @NonNegative int size() {
             throw new UnsupportedOperationException();
         }
 

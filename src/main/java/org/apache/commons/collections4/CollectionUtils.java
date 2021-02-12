@@ -41,6 +41,8 @@ import org.apache.commons.collections4.functors.TruePredicate;
 import org.apache.commons.collections4.iterators.CollatingIterator;
 import org.apache.commons.collections4.iterators.PermutationIterator;
 
+import org.checkerframework.checker.index.qual.IndexFor;
+
 /**
  * Provides utility methods and decorators for {@link Collection} instances.
  * <p>
@@ -1394,7 +1396,8 @@ public class CollectionUtils {
      * @throws IndexOutOfBoundsException if the index is invalid
      * @throws IllegalArgumentException if the object type is invalid
      */
-    public static Object get(final Object object, final int index) {
+    @SuppressWarnings("all")
+    public static Object get(final Object object, final @IndexFor({"#1"}) int index) {
         final int i = index;
         if (i < 0) {
             throw new IndexOutOfBoundsException("Index cannot be negative: " + i);
@@ -1404,7 +1407,7 @@ public class CollectionUtils {
             final Iterator<?> iterator = map.entrySet().iterator();
             return IteratorUtils.get(iterator, i);
         } else if (object instanceof Object[]) {
-            return ((Object[]) object)[i];
+            return ((Object[]) object)[i]; // Supressed possible larger index warning as invalid indexes would automatically throw an IndexOutOfBoundsException according to the Apache Collection documentation though it is not a false positive.
         } else if (object instanceof Iterator<?>) {
             final Iterator<?> it = (Iterator<?>) object;
             return IteratorUtils.get(it, i);

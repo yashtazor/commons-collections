@@ -365,6 +365,10 @@ public class ClosureUtils {
         final Predicate<E>[] preds = new Predicate[size];
         int i = 0;
         for (final Map.Entry<? extends E, Closure<E>> entry : objectsAndClosures.entrySet()) {
+            
+            if(i >= size)
+                break;
+            
             preds[i] = EqualPredicate.<E>equalPredicate(entry.getKey());
             trs[i] = entry.getValue();
             i++;

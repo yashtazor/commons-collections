@@ -40,6 +40,8 @@ import org.apache.commons.collections4.set.UnmodifiableNavigableSet;
 import org.apache.commons.collections4.set.UnmodifiableSet;
 import org.apache.commons.collections4.set.UnmodifiableSortedSet;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 /**
  * Provides utility methods and decorators for
  * {@link Set} and {@link SortedSet} instances.
@@ -83,7 +85,7 @@ public class SetUtils {
         }
 
         @Override
-        public int size() {
+        public @NonNegative int size() {
             return IteratorUtils.size(iterator());
         }
 
@@ -180,7 +182,7 @@ public class SetUtils {
             }
 
             @Override
-            public int size() {
+            public @NonNegative int size() {
                 return aMinusB.size() + bMinusA.size();
             }
         };
@@ -589,7 +591,7 @@ public class SetUtils {
             }
 
             @Override
-            public int size() {
+            public @NonNegative int size() {
                 return setA.size() + bMinusA.size();
             }
         };

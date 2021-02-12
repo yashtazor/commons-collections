@@ -378,6 +378,10 @@ public class TransformerUtils {
         final Predicate<I>[] preds = new Predicate[size];
         int i = 0;
         for (final Map.Entry<I, Transformer<I, O>> entry : objectsAndTransformers.entrySet()) {
+
+            if(i >= size)
+                break;
+
             preds[i] = EqualPredicate.<I>equalPredicate(entry.getKey());
             trs[i++] = entry.getValue();
         }

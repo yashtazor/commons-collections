@@ -66,6 +66,8 @@ import org.apache.commons.collections4.iterators.ZippingIterator;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 /**
  * Provides static utility methods and decorators for {@link Iterator}
  * instances. The implementations are provided in the iterators subpackage.
@@ -1379,7 +1381,7 @@ public class IteratorUtils {
      * @return the number of elements contained in the iterator
      * @since 4.1
      */
-    public static int size(final Iterator<?> iterator) {
+    public static @NonNegative int size(final Iterator<?> iterator) {
         int size = 0;
         if (iterator != null) {
             while (iterator.hasNext()) {
@@ -1387,7 +1389,8 @@ public class IteratorUtils {
                 size++;
             }
         }
-        return size;
+        final @NonNegative int finalsize = size;
+        return finalsize;
     }
 
     /**
@@ -1448,6 +1451,7 @@ public class IteratorUtils {
      * @throws NullPointerException if either transformer, delimiter, prefix or suffix is null
      * @since 4.1
      */
+    @SuppressWarnings("all")
     public static <E> String toString(final Iterator<E> iterator,
                                       final Transformer<? super E, String> transformer,
                                       final String delimiter,
@@ -1463,9 +1467,9 @@ public class IteratorUtils {
                 final E element = iterator.next();
                 stringBuilder.append(transformer.transform(element));
                 stringBuilder.append(delimiter);
-            }
+            }            
             if (stringBuilder.length() > prefix.length()) {
-                stringBuilder.setLength(stringBuilder.length() - delimiter.length());
+                stringBuilder.setLength(stringBuilder.length() - delimiter.length()); // Here, suppressing the possible -ve index warning as it is already taken care of in java.lang by throwing a StringIndexOutOfBoundsException. This is not a false +ve though.
             }
         }
         stringBuilder.append(suffix);

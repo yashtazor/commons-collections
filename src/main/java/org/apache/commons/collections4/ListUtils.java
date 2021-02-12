@@ -36,6 +36,9 @@ import org.apache.commons.collections4.sequence.CommandVisitor;
 import org.apache.commons.collections4.sequence.EditScript;
 import org.apache.commons.collections4.sequence.SequencesComparator;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.index.qual.IndexFor;
+
 /**
  * Provides utility methods and decorators for {@link List} instances.
  *
@@ -646,12 +649,12 @@ public class ListUtils {
         }
 
         @Override
-        public Character get(final int index) {
+        public Character get(final @IndexFor("sequence") int index) {
             return Character.valueOf(sequence.charAt(index));
         }
 
         @Override
-        public int size() {
+        public @NonNegative int size() {
             return sequence.length();
         }
     }
@@ -716,8 +719,8 @@ public class ListUtils {
         }
 
         @Override
-        public int size() {
-            return (int) Math.ceil((double) list.size() / (double) size);
+        public @NonNegative int size() {
+            return (@NonNegative int) Math.ceil((double) list.size() / (double) size); // Here, it throws a type casting warning from "@LowerBoundUnknown double" to "@NonNegative int" but since size is being returned, I think it is okay.
         }
 
         @Override

@@ -19,6 +19,8 @@ package org.apache.commons.collections4;
 import java.util.Collection;
 import java.util.Set;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 /**
  * The "read" subset of the {@link java.util.Map} interface.
  *
@@ -84,7 +86,7 @@ public interface Get<K, V> {
      * @return the number of key-value mappings in this map
      * @see java.util.Map#size()
      */
-    int size();
+    @NonNegative int size();
 
     /**
      * @return a collection view of the values contained in this map
